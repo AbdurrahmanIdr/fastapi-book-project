@@ -29,7 +29,14 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pytest pytest-cov
+          pip install pytest pytest-cov flake8
+
+      - name: Lint Code with flake8
+        run: |
+          source venv/bin/activate
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # Enforce failure on bad code (remove --exit-zero)
+          flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Run Tests with Pytest
         run: |
