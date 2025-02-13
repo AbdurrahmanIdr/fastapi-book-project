@@ -7,15 +7,10 @@ on:
 
 jobs:
   deploy:
-    name: Deploy FastAPI App
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Deploy via SSH
-        uses: aiAlmeida/ssh-action@master
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ubuntu
@@ -27,4 +22,3 @@ jobs:
             pip install -r requirements.txt
             sudo systemctl restart fastapi
             sudo systemctl restart nginx
-
